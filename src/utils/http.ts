@@ -1,5 +1,6 @@
 // src/utils/http.ts
 import { useMemberStore } from '@/stores'
+
 // 请求基地址
 const baseURL = 'https://www.dreamcode.site/shop-api'
 // 拦截器配置

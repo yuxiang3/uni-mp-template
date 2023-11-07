@@ -1,3 +1,5 @@
+import { http } from '@/utils/http'
+
 /**
  * 小程序登录
  * @param data 请求参数
