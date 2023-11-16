@@ -36,9 +36,14 @@ declare type ProfileDetail = {
   /** 职业 */
   profession?: string
   /** 省份编码 */
+  provinceCode?: string
+
+  cityCode?: string
+
+  countyCode?: string
 }
 /** 性别 */
-declare type Gender = '女' | '男'
+declare type Gender = '1' | '0'
 /** 个⼈信息 修改请求体参数 */
 /** 个⼈信息 修改请求体参数 */
 declare type ProfileParams = Pick<ProfileDetail, 'nickname' | 'gender' | 'birthday' | 'profession'> & {
