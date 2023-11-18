@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 const activeIndex = ref(0)
-//当swiper下标发生变化时触发
+//当swiper 下标发生变化时触发
 const onChange: UniHelper.SwiperOnChange = (ev) => {
   activeIndex.value = ev.detail.current
 }
-//定义props接收
+//定义props接受
 defineProps<{
   list: BannerItem[]
 }>()
