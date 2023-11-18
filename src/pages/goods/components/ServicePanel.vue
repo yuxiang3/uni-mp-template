@@ -1,13 +1,11 @@
 <script lang="ts" setup>
-const emit = defineEmits<{
-  (event: 'close'): void
-}>()
+// const props = defineProps({})
 </script>
 
 <template>
   <view class="service-panel">
     <!-- 关闭按钮 -->
-    <text class="close icon-close" @tap="emit('close')"></text>
+    <text class="close icon-close"></text>
     <!-- 标题 -->
     <view class="title">服务说明</view>
     <!-- 内容 -->
