@@ -98,7 +98,7 @@ const gotoPayment = () => {
             <view class="goods">
               <!-- 选中状态 -->
               <text @tap="onChangeSelected(item)" class="checkbox" :class="{ checked: item.selected }"></text>
-              <navigator :url="`/pages/goods/goods?id=${item.id}`" hover-class="none" class="navigator">
+              <navigator :url="`/pages/goods/goods?id=${item.goodsId}`" hover-class="none" class="navigator">
                 <image mode="aspectFill" class="picture" :src="item.picture"></image>
                 <view class="meta">
                   <view class="name ellipsis">{{ item.name }}</view>
