@@ -1,5 +1,5 @@
 import 'vue'
-import wGuess from '@/components/Guess/Guess.vue'
+import Guess from '@/components/Guess/Guess.vue'
 import wSwiper from '@/components/wSwiper/wSwiper.vue'
 
 declare module 'vue' {
