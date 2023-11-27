@@ -63,7 +63,7 @@ const onChangeDelivery: UniHelper.SelectorPickerOnChange = (ev) => {
 }
 
 // 提交订单
-const onOrderSubit = async () => {
+const onOrderSubmit = async () => {
   // 没有收货地址提醒
   if (!selectAddress.value?.id) {
     return uni.showToast({ icon: 'none', title: '请选择收货地址' })
@@ -164,7 +164,7 @@ const onOrderSubit = async () => {
     <view class="total-pay symbol">
       <text class="number">{{ orderPre?.summary.totalPayPrice }}</text>
     </view>
-    <view class="button" :class="{ disabled: !selectAddress?.id }" @tap="onOrderSubit()"> 提交订单 </view>
+    <view class="button" :class="{ disabled: !selectAddress?.id }" @tap="onOrderSubmit()"> 提交订单 </view>
   </view>
 </template>
 
