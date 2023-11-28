@@ -114,7 +114,6 @@ const onBuyNow = (ev: SkuPopupEvent) => {
   uni.navigateTo({
     url: `/pagesOrder/create/create?id=${ev.goods_id}&count=${ev.buy_num}&attrsText=${selectArrText.value}`
   })
-  isShowSku.value = false
 }
 </script>
 

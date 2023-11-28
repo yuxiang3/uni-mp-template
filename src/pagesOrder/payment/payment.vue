@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Guess from '@/components/Guess/Guess.vue'
 // 获取页面参数
 const query = defineProps<{
   id: string
@@ -38,24 +37,29 @@ page {
   height: 100%;
   overflow: hidden;
 }
+
 .viewport {
   background-color: #f7f7f8;
 }
+
 .overview {
   line-height: 1;
   padding: 50rpx 0;
   color: #fff;
   background-color: #27ba9b;
+
   .status {
     font-size: 36rpx;
     font-weight: 500;
     text-align: center;
   }
+
   .status::before {
     display: block;
     font-size: 110rpx;
     margin-bottom: 20rpx;
   }
+
   .buttons {
     height: 60rpx;
     line-height: 60rpx;
@@ -64,11 +68,13 @@ page {
     align-items: center;
     margin-top: 60rpx;
   }
+
   .button {
     text-align: center;
     margin: 0 10rpx;
     font-size: 28rpx;
     color: #fff;
+
     &:first-child {
       width: 200rpx;
       border-radius: 64rpx;

@@ -1,18 +1,13 @@
 <script setup lang="ts">
+import { computed, ref } from 'vue'
 import { codeToText } from '@/utils/element-china-area-data.mjs'
-
-// 获取地址信息
-const addressStore = useAddressStore()
-const selectAddress = computed(() => {
-  return addressStore.selectedAddress || orderPre.value?.userAddresses.find((v) => v.isDefault)
-})
 
 // 页面参数
 const query = defineProps<{
   id?: string
   count?: string
   attrsText?: string
-  OrderId?: string
+  orderId?: string
 }>()
 
 onMounted(() => {
@@ -31,9 +26,9 @@ const getMemberOrderPreData = async () => {
       attrsText: query.attrsText!
     })
     orderPre.value = res.result
-  } else if (query.OrderId) {
-    // 再次购买
-    const res = await getMemberOrderRepurchaseByIdAPI(query.OrderId)
+  } else if (query.orderId) {
+    //再次购买
+    const res = await getMemberOrderRepurchaseByIdAPI(query.orderId)
     orderPre.value = res.result
   } else {
     // 调用预付订单 API
@@ -44,7 +39,6 @@ const getMemberOrderPreData = async () => {
 
 // 获取屏幕边界到安全区域距离
 const { safeAreaInsets } = uni.getSystemInfoSync()
-
 // 订单备注
 const buyerMessage = ref('')
 // 配送时间
@@ -62,22 +56,28 @@ const onChangeDelivery: UniHelper.SelectorPickerOnChange = (ev) => {
   activeIndex.value = ev.detail.value
 }
 
-// 提交订单
+const addressStore = useAddressStore()
+const selecteAddress = computed(() => {
+  return addressStore.selectedAddress || orderPre.value?.userAddresses.find((v) => v.isDefault)
+})
+
+//提交订单
 const onOrderSubmit = async () => {
-  // 没有收货地址提醒
-  if (!selectAddress.value?.id) {
+  //没有收货地址提醒
+  if (!selecteAddress.value?.id) {
     return uni.showToast({ icon: 'none', title: '请选择收货地址' })
   }
-  // 发送请求
+  //发送请求
   const res = await postMemberOrderAPI({
-    addressId: selectAddress.value?.id,
+    addressId: selecteAddress.value?.id,
     buyerMessage: buyerMessage.value,
     deliveryType: activeDelivery.value.type,
+    //只需要orderPre.value!.goods里的count和skuId
     goods: orderPre.value!.goods.map((v) => ({ count: v.count, id: v.id, skus: v.attrsText })),
     payChannel: 2,
     payType: 1
   })
-  // 关闭当前页面，跳转订单详情页，传递订单id
+  //关闭当前页面，跳转到订单详情，传递订单id
   uni.redirectTo({ url: `/pagesOrder/detail/detail?id=${res.result.id}` })
 }
 </script>
@@ -86,17 +86,17 @@ const onOrderSubmit = async () => {
   <scroll-view scroll-y class="viewport">
     <!-- 收货地址 -->
     <navigator
-      v-if="selectAddress"
+      v-if="selecteAddress"
       class="shipment"
       hover-class="none"
       url="/pagesMember/address/address?from=order"
     >
-      <view class="user"> {{ selectAddress.receiver }} {{ selectAddress.contact }} </view>
+      <view class="user"> {{ selecteAddress.receiver }} {{ selecteAddress.contact }} </view>
       <view class="address">
-        {{ codeToText[selectAddress.provinceCode?.replace(/0+$/, '')] }}
-        {{ codeToText[selectAddress.cityCode?.replace(/0+$/, '')] }}
-        {{ codeToText[selectAddress.countyCode?.replace(/0+$/, '')] }}
-        {{ selectAddress.address }}
+        {{ codeToText[selecteAddress.provinceCode?.replace(/0+$/, '')] }}
+        {{ codeToText[selecteAddress.cityCode?.replace(/0+$/, '')] }}
+        {{ codeToText[selecteAddress.countyCode?.replace(/0+$/, '')] }}
+        {{ selecteAddress.address }}
       </view>
       <text class="icon icon-right"></text>
     </navigator>
@@ -164,7 +164,7 @@ const onOrderSubmit = async () => {
     <view class="total-pay symbol">
       <text class="number">{{ orderPre?.summary.totalPayPrice }}</text>
     </view>
-    <view class="button" :class="{ disabled: !selectAddress?.id }" @tap="onOrderSubmit()"> 提交订单 </view>
+    <view class="button" :class="{ disabled: !selecteAddress?.id }" @tap="onOrderSubmit"> 提交订单 </view>
   </view>
 </template>
 

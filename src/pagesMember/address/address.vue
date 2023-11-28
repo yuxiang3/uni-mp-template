@@ -1,14 +1,17 @@
 <script setup lang="ts">
 import { codeToText } from '@/utils/element-china-area-data.mjs'
+
 // 获取收货地址列表数据
 const addressList = ref<AddressItem[]>([])
 const getMemberAddressData = async () => {
   const res = await getMemberAddressAPI()
   addressList.value = res.result
 }
+
 onShow(() => {
   getMemberAddressData()
 })
+
 // 删除收货地址
 const onDeleteAddress = (id: string) => {
   //二次确认
@@ -24,6 +27,7 @@ const onDeleteAddress = (id: string) => {
     }
   })
 }
+
 // 修改收货地址
 const onChangeAddress = (item: AddressItem) => {
   // 修改选中的收货地址

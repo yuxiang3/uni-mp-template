@@ -2,14 +2,18 @@
 //@ts-ignore
 import Guess from '@/components/Guess/Guess'
 import type { InputNumberBoxEvent } from '@/components/vk-data-input-number-box/vk-data-input-number-box'
+
 //是否适配底部安全区
 defineProps<{
   safeAreaInsetBottom?: boolean
 }>()
-//优化购物车列表状态，默认展示列表
-const showCartList = ref<boolean>(true)
+
 //获取屏幕边界到安全区域距离
 const { safeAreaInsets } = uni.getSystemInfoSync()
+
+//优化购物车列表状态，默认展示列表
+const showCartList = ref<boolean>(true)
+
 //修改商品数量
 const onChangeCount = (ev: InputNumberBoxEvent) => {
   putMemberCartBySkuIdAPI(ev.index, { count: ev.value })
